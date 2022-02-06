@@ -1,0 +1,144 @@
+/* Make HTML and body content viewable, layout to fill window */
+/* Makes the html / webpage as tall or taller as the browser window */
+html {
+  min-height: 100vh;
+}
+
+/* Makes the body as tall or taller as the browser window, less html element's padding */
+body {
+  min-height: calc(100vh - 2 * 20px);
+  margin-left: 20px;
+  margin-right: 20px;
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Sets font family for all Header styles */ 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+:root {
+  --clr-green-text: #4d4d4d;
+  --clr-green-background: #004b2348;
+  --clr-footer-background: #004b2311;
+  --clr-nav-background: #fffaf0;
+}
+
+/* Give all semantic body elements uniform layout style */
+footer, aside, section, article, details, div {
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+main {
+  margin: 100px;
+}
+
+/* styles for NAV element including for nav bar */
+nav {
+  background-color: rgb(189, 189, 189);
+  border: solid var(--clr-green-text);
+  width: 100%;
+  border-radius: 15px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  background-color:  rgb(189, 189, 189);
+  top: 100px;
+  width: 100%;
+}
+
+li {
+  float: left;
+  border-color: rgb(189, 189, 189);
+  border-width: 10px;
+  font-size: 220%;
+  font-weight: bold;
+}
+
+li a {
+  display: block;
+  color: rgb(73, 73, 73);
+  text-align: center;
+  padding: 15px 100px;
+  text-decoration: none;
+  border-radius: 10px;
+  border-color: rgb(189, 189, 189);
+  border-width: 5px;
+}
+
+li a:hover:not(.active) {
+  background-color: rgb(56, 56, 56);
+  color:rgb(189, 189, 189)
+}
+
+.active {
+  background-color: rgb(56, 56, 56);
+  color:rgb(189, 189, 189)
+}
+
+article#about {
+  text-align: justify;
+}
+
+article#contact {
+  color: var(--clr-green-text);
+}
+
+h3#contact {
+  color: var(--clr-green-text);
+  text-align: center;
+}
+
+article {
+  text-align: left;
+  padding: 10px;
+}
+
+header {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header * {
+  vertical-align: middle;
+  filter: drop-shadow(-1px -1px 5px var(--clr-grey-background));
+  -webkit-filter: drop-shadow(-1px -1px 5px var(--clr-grey-background));
+  margin-left: 100px;
+}
+
+img {
+  margin-right: 100px;
+  margin-top: 10px;
+}
+
+footer {
+  padding: 10px;
+  margin-top: 500px;
+}
+
+.main-table, .table-header, .table-row {
+  border: 1px solid rgb(54, 54, 54);
+  border-collapse: collapse;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* for colouring the table background */
+.table-row  {
+  background-color: rgb(228, 227, 227);
+  font-weight: normal;
+}
+
+.table-header {
+  background-color: rgb(168, 168, 168);
+  height: 50px;
+  font-weight: bold;
+}
