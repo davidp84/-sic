@@ -1,44 +1,72 @@
-/* Make HTML and body content viewable, layout to fill window */
-/* Makes the html / webpage as tall or taller as the browser window */
+html, 
+body {
+  padding: 10px;
+  margin: 0px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  font-family: "Archivo", sans-serif;
+}
+
 html {
   min-height: 100vh;
 }
 
-/* Makes the body as tall or taller as the browser window, less html element's padding */
 body {
   min-height: calc(100vh - 2 * 20px);
   margin-left: 20px;
   margin-right: 20px;
   box-sizing: border-box;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
-/* Sets font family for all Header styles */ 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Trebuchet MS', sans-serif;
-}
-
-:root {
+/* :root {
   --clr-green-text: #4d4d4d;
   --clr-green-background: #004b2348;
   --clr-footer-background: #004b2311;
   --clr-nav-background: #fffaf0;
-}
+} */
 
 /* Give all semantic body elements uniform layout style */
-footer, aside, section, article, details, div {
-  margin: 5px;
+header, nav, main, footer, aside, section, article, details, div {
+  margin: 1px;
+  padding: 1px;
   box-sizing: border-box;
+  font-weight:600;
+}
+
+header {
+  grid-area: hd;
+}
+
+h2.company-name {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+
 }
 
 main {
-  margin: 100px;
+  /* margin: 100px; */
+  grid-area: mn;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  height: auto;
+}
+
+img.logo {
+  vertical-align: middle;
+  filter: drop-shadow(20px 0px 1px rgb(231, 198, 6));
+  -webkit-filter: drop-shadow(20px 0px 1px rgb(231, 198, 6));
 }
 
 /* styles for NAV element including for nav bar */
 nav {
-  background-color: rgb(189, 189, 189);
-  border: solid var(--clr-green-text);
+  grid-area: nv;
+  background-color: rgb(231, 198, 6);
   width: 100%;
   border-radius: 15px;
 }
@@ -47,8 +75,8 @@ ul {
   list-style-type: none;
   padding: 0;
   overflow: hidden;
-  background-color:  rgb(189, 189, 189);
-  top: 100px;
+  background-color:  rgb(231, 198, 6);
+  top: 10px;
   width: 100%;
 }
 
@@ -103,6 +131,8 @@ header {
   font-size: clamp(3rem, 10vw, 7rem);
   font-weight: bold;
   display: flex;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
   align-items: center;
   justify-content: space-between;
 }
@@ -111,17 +141,22 @@ header * {
   vertical-align: middle;
   filter: drop-shadow(-1px -1px 5px var(--clr-grey-background));
   -webkit-filter: drop-shadow(-1px -1px 5px var(--clr-grey-background));
-  margin-left: 100px;
+  margin-left: 10px;
 }
 
 img {
-  margin-right: 100px;
-  margin-top: 10px;
+  margin-right: 0px;
+  margin-top: 0px;
 }
 
 footer {
+  /* padding: 10px;
+  margin-top: 500px; */
+  grid-area: ft;
   padding: 10px;
-  margin-top: 500px;
+  font-weight: 600;
+  position: sticky;
+  bottom: 0px;
 }
 
 .main-table, .table-header, .table-row {
@@ -141,4 +176,140 @@ footer {
   background-color: rgb(168, 168, 168);
   height: 50px;
   font-weight: bold;
+}
+
+.textfield {
+  max-width: 600px;
+  width: 95%;
+  border-radius: 3px;
+}
+
+.address {
+  min-height: 25px;
+  max-width: 600px;
+  width: 95%;
+  border-radius: 3px;
+}
+
+.order-button {
+  text-align: center;
+  max-width: 600px;
+  width: 95%;
+  border-radius: 3px;
+  margin-top: 10px;  
+}
+
+form.login {
+  display: hidden;
+}
+
+fieldset {
+  text-align: center;
+  margin: auto;
+}
+
+fieldset input[type="radio"] {
+  display: none;
+}
+
+fieldset input[type="radio"] + label {
+  /* display: inline-block; */
+  width: 50%;
+  text-decoration: none;
+  background-color: var(--clr-footer-background);
+  color: var(--clr-green-text);
+  padding: 5px 5px;
+  border-color: var(--clr-green-text);
+  border: solid 2px;
+}
+
+fieldset input[type="radio"]:checked + label {
+  background-color: var(--clr-green-text);
+  color: rgba(192, 238, 214, 0.555);
+  transition: 0.6s;
+}
+
+fieldset input[type="radio"]:first-of-type + label {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+fieldset input[type="radio"]:last-of-type + label {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+@media (max-height: 600px) {
+  footer {
+    position: static;
+  }
+}
+
+@media only screen and (min-width : 800px) {
+  .main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto, 2);
+    grid-template-rows: repeat(auto, 4);
+    gap: 2em;
+    grid-template-areas:
+      "hd hd"
+      "nv nv"
+      "mn mn"
+      "ft ft";
+  }
+
+  header {
+    max-width: max-content;
+    float: left;
+  }
+  
+  img.logo {
+    align-items: right;
+  }
+
+  nav {
+    min-width: max-content;
+    width: auto;
+    height: 114px;
+    text-align: right;
+  }
+
+  ul, li {
+    justify-self: right;
+  }
+
+  main {
+    padding-top: 20px;
+  }
+
+  p {
+    grid-column: 1;
+    justify-self: stretch;
+    align-self: center;
+  }
+
+  input {
+    grid-column: 2;
+    justify-self: stretch;
+    align-self: center;
+  }
+
+  input.checkbox {
+    justify-self: start;
+  }
+
+  label {
+    grid-column: 2;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    grid-auto-rows: auto;
+  }
+
+  form.login {
+    display: hidden;
+  }
+  
 }

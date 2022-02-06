@@ -4,6 +4,37 @@
 
   $alerts = getAlertsFromCSV();
 
+  /*
+  Note for marker:
+  User Alice is a Seller
+  User Bob is an Authority
+  User Carol is a Buyer
+  User Daniel is a Bank  
+  */
+
+  $users = [
+    'Alice' => 'passwordA', 'seller',
+    'Bob' => 'passwordB', 'authority',
+    'Carol' => 'passwordC', 'buyer',
+    'Daniel' => 'passwordD', "bank",
+  ];
+
+  function logIO() {
+    global $users;
+    if (isset($_SESSION['user'])) {
+      unset($_SESSION['user']);
+    } else {
+      if (!empty($_REQUEST['user']) && !empty($_REQUEST['password'])) {
+        if (key_exists($_REQUEST['user'], $users)) {
+          if (strcmp($users[$_REQUEST['user']], 
+              $_REQUEST['password'], $_REQUEST['type']) === 0) {   
+              $_SESSION['user'] = $_REQUEST['user'];
+          }
+        }
+      }
+    }
+  }
+
   function topModule($title) {
   echo <<<"TOP"
 <head>
@@ -24,6 +55,18 @@
 rel="stylesheet">
 </head>
 
+<body onload='loadForm()'>
+<div class='main-grid'>  
+<header class='logo-header'>
+<!-- <img class='logo-head' src='../../media/logo.jpg'> -->
+  <h2 class='company-name'>Homelink</h2>
+  <a href='index.php'>
+    <!-- img used for educational purposes only, note this will be relpaced with a new logo -->
+    <!-- dilayorganci, 2017. Home Link. Free icons for everything - noun project. Available at: https://thenounproject.com/icon/home-link-815698/ [Accessed February 6, 2022]. -->
+  <img class='logo' src='../../media/homelink.png ' alt='The homelink Company Logo' height="150">
+  </a>
+</header>
+
 TOP;
 }
 
@@ -42,6 +85,70 @@ function footerModule() {
 
 </html>
 END;
+}
+
+function navContent() {
+  if(isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+    $user = ucfirst($user);
+    echo <<<"NAV"
+    <nav>
+      <div>Logged in as $user</div>
+      <ul>
+        <li><a href="./">Home</a></li>
+        <li><a href="./members.php">Members</a></li>
+        <li><form class='login' method='post'>
+        <input type=hidden id='status' name='status' value='Logout' />
+        <input class='btn' type='SUBMIT' value='Logout' />
+      </form></li>
+      </ul>
+    </nav>
+NAV;
+  } else {
+    echo <<<"NAV"
+    <nav>
+      <ul>
+        <li><a href="./">Home</a></li>
+        <li><a href="./members.php">Members</a></li>
+        <li><input type='button' class='login-btn' id='login-btn' onclick='toggleLogin()' value='Login' /></li>
+      </ul>
+      <form class='login' id=login method='post' hidden>
+        <input type=hidden id='status' name='status' value='Login' />
+        <input type='text' id="user" name='user' placeholder='username' required />
+        <input type='text' id="password" name='password' placeholder='password' required />
+        <fieldset>
+        <input type='radio' id="seller" value='seller' name='variant' checked="checked" required />
+        <label for='seller'>Seller</label>
+        <input type='radio' id="authority" value='authority' name='variant' />
+        <label for='authority'>Authority</label>
+        <input type='radio' id="buyer" value='buyer' name='variant' />
+        <label for='buyer'>Buyer</label>
+        <input type='radio' id="bank" value='bank' name='variant' />
+        <label for='bank'>Bank</label>
+        </fieldset>
+        <input class='btn' type='SUBMIT' value='Login' />
+      </form>
+      
+    </nav>
+NAV;
+  }
+}
+
+// Need to amend to current project
+function membersContent() {
+  if(isset($_SESSION['user'])) {
+    echo <<<"MEMBER"
+      <main>
+        <h1>Members Only Page</h1>
+        <p><img src='website-under-construction.png' alt='Website Under Construction' /></p>
+MEMBER;
+  } else {
+    echo <<<"MEMBER"
+    <main>
+      <h1>Members Only Page</h1>
+      <p>This page is for members only</p>
+MEMBER;
+  }
 }
 
 // Builds array of alerts from CSV File
