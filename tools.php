@@ -4,6 +4,14 @@
 
   $alerts = getAlertsFromCSV();
 
+  function debugModule() {
+    echo "\n\n<pre id='debug'>";
+    print_r($_POST);
+    print_r($_SESSION);
+    print_r($_REQUEST);
+    echo "</pre>\n\n";
+}
+
   /*
   Note for marker:
   User Alice is a Seller
@@ -24,10 +32,10 @@
     if (isset($_SESSION['user'])) {
       unset($_SESSION['user']);
     } else {
-      if (!empty($_REQUEST['user']) && !empty($_REQUEST['password'])) {
+      if (!empty($_REQUEST['user']) && !empty($_REQUEST['password']) && !empty($_REQUEST['variant'])) {
         if (key_exists($_REQUEST['user'], $users)) {
           if (strcmp($users[$_REQUEST['user']], 
-              $_REQUEST['password'], $_REQUEST['type']) === 0) {   
+              $_REQUEST['password'], $_REQUEST['variant']) === 0) {   
               $_SESSION['user'] = $_REQUEST['user'];
           }
         }
@@ -116,7 +124,8 @@ NAV;
         <input type=hidden id='status' name='status' value='Login' />
         <input type='text' id="user" name='user' placeholder='username' required />
         <input type='text' id="password" name='password' placeholder='password' required />
-        <fieldset>
+        <fieldset class="login-types">
+        <label>User Type</label>
         <input type='radio' id="seller" value='seller' name='variant' checked="checked" required />
         <label for='seller'>Seller</label>
         <input type='radio' id="authority" value='authority' name='variant' />
