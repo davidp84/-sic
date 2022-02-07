@@ -166,51 +166,108 @@ MEMBER;
   }
 }
 
-// Creates a Seller Block with the passed String. 
+// Creates a Seller Block with the passed details. 
 // Returns the generated hash as the permit application ID.
-function createSellerBlock() {
-  // property address
-  // owner/vendor details
-  // building design (link to pdf upload)
-  // seller licence number
-  // Return: permit application ID
+function createSellerBlock($property, $owner, $design, $licence) {
+  if ($index !== 0) {
+    $date = getDateTime();
+    $data = [
+      'property' => $property,
+      'owner' => $owner,
+      'design' => $design,
+      'licence' => $licence,
+    ];
+    $block = [
+      'index' => $index,
+      'date' => $date,
+      'previousHash' => $previousHash,
+      'data' => $data,
+    ];
+    $hash = createHash($block);
+    $block += 'hash' => $hash;
+    addBlock($hash, $block);
+    return $hash;
+  }
 }
 
 
-// Creates an Authority Block with the passed String. 
-// Returns the generated hash.
-function createAuthorityBlock() {
-  // decision
-  // property address
+// Creates an Authority Block with the passed details. 
+function createAuthorityBlock($decision, $property) {
+  if ($index !== 0) {
+    $date = getDateTime();
+    $data = [
+      'decision' => $decision,
+      'property' => $property,
+    ];
+    $block = [
+      'index' => $index,
+      'date' => $date,
+      'previousHash' => $previousHash,
+      'data' => $data,
+    ];
+    $hash = createHash($block);
+    $block += 'hash' => $hash;
+    addBlock($hash, $block);
+  }
 }
 
-// Creates a Buyer Block with the passed String. 
+// Creates a Buyer Block with the passed details. 
 // Returns the generated hash as the Loan Application ID.
-function createBuyerBlock() {
-  // full name
-  // DOB
-  // current address
-  // contact number
-  // employer name
-  // annual income
-  // address of property to buy
-  // loan amount
-  // Return: Loan application ID
+function createBuyerBlock($name, $DOB, $currentAddress, $number, 
+                          $employer, $income, $propertyAddress, $loanAmount) {
+  if ($index !== 0) {
+    $date = getDateTime();
+    $data = [
+      'name' => $name,
+      'DOB' => $DOB,
+      'currentAddress' => $currentAddress,
+      'number' => $number,
+      'employer' => $employer,
+      'income' => $income,
+      'propertyAddress' => $propertyAddress,
+      'loanAmount' => $loanAmount,
+    ];
+    $block = [
+      'index' => $index,
+      'date' => $date,
+      'previousHash' => $previousHash,
+      'data' => $data,
+    ];
+    $hash = createHash($block);
+    $block += 'hash' => $hash;
+    addBlock($hash, $block);
+    return $hash;
+  }
 }
 
 // Creates a Bank Block with the passed String. 
-// Returns the generated hash.
-function createBankBlock() {
-  // decision
-  // buyers full name
-  // current address
-  // contact number 
-  // DOB
+function createBankBlock($decision, $name, $currentAddress, $number, $DOB) {
+  if ($index !== 0) {
+    $date = getDateTime();
+    $data = [
+      'decision' => $decision,
+      'name' => $name,
+      'currentAddress' => $currentAddress,
+      'number' => $number,
+      'DOB' => $DOB,
+    ];
+    $block = [
+      'index' => $index,
+      'date' => $date,
+      'previousHash' => $previousHash,
+      'data' => $data,
+    ];
+    $hash = createHash($block);
+    $block += 'hash' => $hash;
+    addBlock($hash, $block);
+    return $hash;
+  }
 }
 
 // Returns a SHA256 Hash of the passed array.
 function createHash($block) {
-//
+  $hash = hash('sha256', $block.serialize(), false);
+  return $hash;
 }
 
 // Used to get the generic info of each block.
@@ -242,7 +299,7 @@ function createGensisBlock() {
     $block = [
       'index' => $index,
       'date' => $date,
-      'previuosHash' => $previousHash,
+      'previousHash' => $previousHash,
       'data' => $data,
     ];
     $hash = createHash($block);
