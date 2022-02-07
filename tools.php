@@ -184,7 +184,7 @@ function createSellerBlock($property, $owner, $design, $licence) {
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash' => $hash);
+    $block = array_merge('hash', $hash);
     addBlock($hash, $block);
     return $hash;
   }
@@ -206,7 +206,7 @@ function createAuthorityBlock($decision, $property) {
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash' => $hash);
+    $block = array_merge('hash', $hash);
     addBlock($hash, $block);
   }
 }
@@ -234,7 +234,7 @@ function createBuyerBlock($name, $DOB, $currentAddress, $number,
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash' => $hash);
+    $block = array_merge('hash', $hash);
     addBlock($hash, $block);
     return $hash;
   }
@@ -258,7 +258,7 @@ function createBankBlock($decision, $name, $currentAddress, $number, $DOB) {
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash' => $hash);
+    $block = array_merge('hash', $hash);
     addBlock($hash, $block);
     return $hash;
   }
@@ -303,7 +303,7 @@ function createGensisBlock() {
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash' => $hash);
+    $block = array_merge('hash', $hash);
     addBlock($hash, $block);
   }
 }
