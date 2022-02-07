@@ -1,7 +1,6 @@
 <?php
   session_start();
   error_reporting( E_ERROR | E_WARNING | E_PARSE);
-
   $alerts = getAlertsFromCSV();
 
   function debugModule() {
@@ -20,12 +19,15 @@
   User Daniel is a Bank  
   */
 
-  $users = [
-    'Alice' => 'passwordA', 'seller',
-    'Bob' => 'passwordB', 'authority',
-    'Carol' => 'passwordC', 'buyer',
-    'Daniel' => 'passwordD', "bank",
-  ];
+  $users = array(
+    "Alice" => array('passwordA', 'seller'),
+    "Bob" => array('passwordB', 'authority'),
+    "Carol" => array('passwordC', 'buyer'),
+    "Daniel" => array('passwordD', "bank")
+  );
+
+  $index = 0;
+  $previousHash = "";
 
   function logIO() {
     global $users;
@@ -36,6 +38,8 @@
         if (key_exists($_REQUEST['user'], $users)) {
           if (strcmp($users[$_REQUEST['user']], 
               $_REQUEST['password'], $_REQUEST['variant']) === 0) {   
+                echo "This worked";
+                // break this up into different string compares.
               $_SESSION['user'] = $_REQUEST['user'];
           }
         }
@@ -203,25 +207,46 @@ function createBankBlock() {
 }
 
 // Returns a SHA256 Hash of the passed String.
-function createHash() {
-
+function createHash($block) {
+//
 }
 
 // Used to get the generic info of each block.
 function getBlockBasics() {
-  //Index
-  //Date Time
+  if($index === 0) {
+    createGenisisBlock();
+    $string = "Block could not be added, please try again";
+    return $string;
+    } else {
+    $date = getDateTime();
+  }
   //Previous Hash
 }
 
 // Adds block to Blockchain/List
-function addBlock() {
-
+function addBlock($hash) {
+ //add hash
+ $previousHash = $hash;
+ $index++;
 }
 
 // Creates a genesis block.
 function createGensisBlock() {
-  
+  if ($index === 0) {
+    $date = getDateTime();
+    $previousHash = 0;
+    $data = "Genesis Block";
+    $block = $index . $date . $previousHash . $data;
+    $hash = createHash($block);
+    addBlock($hash);
+  }
+}
+
+// Gets current date time() 
+function getDateTime() {
+  date_default_timezone_set('Australia/Melbourne');
+  $date = date('d/m/y h:i:s a', time());
+  return $date;
 }
 
 // Builds array of alerts from CSV File
