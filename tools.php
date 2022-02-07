@@ -284,7 +284,7 @@ function getBlockBasics() {
 
 // Adds block to Blockchain/List
 function addBlock($hash, $block) {
- $blockchain.add($hash => $block);
+ $blockchain.add($hash, $block);
  $previousHash = $hash;
  $index++;
 }
