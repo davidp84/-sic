@@ -290,7 +290,7 @@ function addBlock($hash, $block) {
 }
 
 // Creates a genesis block.
-function createGensisBlock() {
+function createGenesisBlock() {
   if ($index === 0) {
     $date = getDateTime();
     $previousHash = 0;

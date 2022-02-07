@@ -21,20 +21,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <main>
 
 <h1>Home Page</h1>
-      <h2>Order Form</h2>
+      <h2>Create Permit Application</h2>
       <form id="order" >
-      <p>Name</p>
-      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
-      <p>Email</p>
-      <input class="textfield" type='text' id="email" name='email' value=""/>
-      <p>Mobile</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
-      <p>Address</p>
+      <p>Property Address</p>
       <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
-      <label for="remember-me"><input class="checkbox" type='checkbox' id="remember-me" name='remember-me' onchange='rememberMe()' >Remember Me</label><br>
+      <p>Owner/Vendor Details</p>
+      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <p>Building Design</p>
+      <input class="textfield" type='text' id="email" name='email' value=""/>
+      <p>Seller Licence Number</p>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
       <input class="order-button" type='submit' name='complete-order' value='Complete Order (disabled)' disabled='true'>
       </form>
 
+      <h2>Authority Approval</h2>
+      <form id="order" >
+      <p>Decision</p>
+      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <p>Property Address</p>
+      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <input class="order-button" type='submit' name='complete-order' value='Complete Order (disabled)' disabled='true'>
+      </form>
+
+      <h2>Loan Application</h2>
+      <form id="order" >
+      <p>Full Name</p>
+      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <p>Date Of Birth</p>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <p>Current Address</p>
+      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <p>Phone Number</p>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <p>Employer Name</p>
+      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <p>Annual Income</p>
+      <input class="textfield" type='text' id="email" name='email' value=""/>
+      <p>Address of the Property intended to buy</p>
+      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <p>Loan Amount</p>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <input class="order-button" type='submit' name='complete-order' value='Complete Order (disabled)' disabled='true'>
+      </form>
+
+      <h2>Bank Loan Approval</h2>
+      <form id="order" >
+      <p>Decision</p>
+      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <p>Full Name</p>
+      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <p>Current Address</p>
+      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <p>Phone Number</p>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <p>Date Of Birth</p>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+  
+    </form>
 </main>
 
 <?= footerModule() ?>
