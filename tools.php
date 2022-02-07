@@ -160,6 +160,70 @@ MEMBER;
   }
 }
 
+// Creates a Seller Block with the passed String. 
+// Returns the generated hash as the permit application ID.
+function createSellerBlock() {
+  // property address
+  // owner/vendor details
+  // building design (link to pdf upload)
+  // seller licence number
+  // Return: permit application ID
+}
+
+
+// Creates an Authority Block with the passed String. 
+// Returns the generated hash.
+function createAuthorityBlock() {
+  // decision
+  // property address
+}
+
+// Creates a Buyer Block with the passed String. 
+// Returns the generated hash as the Loan Application ID.
+function createBuyerBlock() {
+  // full name
+  // DOB
+  // current address
+  // contact number
+  // employer name
+  // annual income
+  // address of property to buy
+  // loan amount
+  // Return: Loan application ID
+}
+
+// Creates a Bank Block with the passed String. 
+// Returns the generated hash.
+function createBankBlock() {
+  // decision
+  // buyers full name
+  // current address
+  // contact number 
+  // DOB
+}
+
+// Returns a SHA256 Hash of the passed String.
+function createHash() {
+
+}
+
+// Used to get the generic info of each block.
+function getBlockBasics() {
+  //Index
+  //Date Time
+  //Previous Hash
+}
+
+// Adds block to Blockchain/List
+function addBlock() {
+
+}
+
+// Creates a genesis block.
+function createGensisBlock() {
+  
+}
+
 // Builds array of alerts from CSV File
 function getAlertsFromCSV() {
   $alerts=[];
