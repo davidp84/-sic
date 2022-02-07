@@ -184,7 +184,7 @@ function createSellerBlock($property, $owner, $design, $licence) {
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block += 'hash' => $hash;
+    $block = array_merge('hash' => $hash);
     addBlock($hash, $block);
     return $hash;
   }
