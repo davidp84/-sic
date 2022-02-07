@@ -28,6 +28,8 @@
 
   $index = 0;
   $previousHash = "";
+  $blockchain[] = "";
+
 
   function logIO() {
     global $users;
@@ -147,7 +149,7 @@ NAV;
   }
 }
 
-// Need to amend to current project
+// Need to amend to current project. Maybe display the search function and relevant form.
 function membersContent() {
   if(isset($_SESSION['user'])) {
     echo <<<"MEMBER"
@@ -206,7 +208,7 @@ function createBankBlock() {
   // DOB
 }
 
-// Returns a SHA256 Hash of the passed String.
+// Returns a SHA256 Hash of the passed array.
 function createHash($block) {
 //
 }
@@ -224,8 +226,8 @@ function getBlockBasics() {
 }
 
 // Adds block to Blockchain/List
-function addBlock($hash) {
- //add hash
+function addBlock($hash, $block) {
+ $blockchain.add($hash => $block);
  $previousHash = $hash;
  $index++;
 }
@@ -236,9 +238,16 @@ function createGensisBlock() {
     $date = getDateTime();
     $previousHash = 0;
     $data = "Genesis Block";
-    $block = $index . $date . $previousHash . $data;
+    // $block = $index . $date . $previousHash . $data;
+    $block = [
+      'index' => $index,
+      'date' => $date,
+      'previuosHash' => $previousHash,
+      'data' => $data,
+    ];
     $hash = createHash($block);
-    addBlock($hash);
+    $block += 'hash' => $hash;
+    addBlock($hash, $block);
   }
 }
 
