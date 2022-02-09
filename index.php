@@ -4,16 +4,46 @@
 <?php 
 
 include ('tools.php');
+
+$result = '';
+
 topModule("Homelink");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  require("post-validation-seller.php");
+
   if (isset($_POST['status'])) {
     LogIO();
   } else {
     unset($_SESSION['user']);
   }
-}
 
+  // if (validatePostData()) {
+  $_SESSION['propertyAddress'] = $_POST['address'];
+  $_SESSION['ownerDetails'] = $_POST['name'];
+  $_SESSION['buildingDesign'] = $_POST['design'];
+  $_SESSION['licence'] = $_POST['licence'];
+  unset($_POST);
+  // }
+
+//  if (!isset($_SESSION['propertyAddress']) || $_SESSION['propertyAddress'] == null) {
+//   errorMessage();
+// } else {
+  $result = createSellerBlock();
+   // unset($_SESSION);
+// }
+
+
+echo "\n\n<pre id='debug'>";
+print_r($_POST);
+print_r($_SESSION);
+foreach($blockchain as $key => $value){
+  print_r($key);
+  print_r("has the value");
+  print_r($value);
+}
+echo "</pre>\n\n";
+}  
   navContent();   
     
 ?>
@@ -22,15 +52,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h1>Home Page</h1>
       <h2>Create Permit Application</h2>
-      <form class='shop-form' method='post' action="" onsubmit="return validatePostData()" >
+      <form class='shop-form' method='post' action=""  >
       <p>Property Address</p>
       <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
       <p>Owner/Vendor Details</p>
       <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
       <p>Building Design</p>
-      <input class="textfield" type='text' id="email" name='email' value=""/>
+      <input class="textfield" type='text' id="design" name='design' value=""/>
       <p>Seller Licence Number</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <input class="textfield" type='text' id="licence" name='licence' value=""/>
       <input class="order-button" type='submit' name='complete-order' value='Complete Order' >
       </form>
 
@@ -44,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </form>
 
       <h2>Loan Application</h2>
-      <form id="order" >
+      <form form class='shop-form' method='post' action="" onsubmit="return validatePostData()" >
       <p>Full Name</p>
       <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
       <p>Date Of Birth</p>

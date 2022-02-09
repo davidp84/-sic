@@ -168,14 +168,42 @@ MEMBER;
 
 // Creates a Seller Block with the passed details. 
 // Returns the generated hash as the permit application ID.
-function createSellerBlock($property, $owner, $design, $licence) {
-  if ($index !== 0) {
+// function createSellerBlock($address, $name, $design, $licence) {
+//   if ($index !== 0) {
+//     $date = getDateTime();
+//     $data = [
+//       'property' => $address,
+//       'owner' => $name,
+//       'design' => $design,
+//       'licence' => $licence,
+//     ];
+//     $block = [
+//       'index' => $index,
+//       'date' => $date,
+//       'previousHash' => $previousHash,
+//       'data' => $data,
+//     ];
+//     $hash = createHash($block);
+//     $block = array_merge('hash', $hash);
+//     addBlock($hash, $block);
+//     return $hash;
+//   }
+// }
+
+// Creates a Seller Block with the passed details. 
+// Returns the generated hash as the permit application ID.
+function createSellerBlock() {
+  global $index;
+  global $previousHash;
+  if ($index === 0) {
+    createGenesisBlock();
+  }
     $date = getDateTime();
     $data = [
-      'property' => $property,
-      'owner' => $owner,
-      'design' => $design,
-      'licence' => $licence,
+      'property' => $_SESSION['propertyAddress'],
+      'owner' => $_SESSION['ownerDetails'],
+      'design' => $_SESSION['buildingDesigndesign'],
+      'licence' => $_SESSION['licence'],
     ];
     $block = [
       'index' => $index,
@@ -184,16 +212,19 @@ function createSellerBlock($property, $owner, $design, $licence) {
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash', $hash);
+    $block['hash'] =  $hash;
     addBlock($hash, $block);
     return $hash;
   }
-}
+
 
 
 // Creates an Authority Block with the passed details. 
 function createAuthorityBlock($decision, $property) {
-  if ($index !== 0) {
+  if ($index === 0) {
+    createGenesisBlock();
+  }
+
     $date = getDateTime();
     $data = [
       'decision' => $decision,
@@ -208,7 +239,7 @@ function createAuthorityBlock($decision, $property) {
     $hash = createHash($block);
     $block = array_merge('hash', $hash);
     addBlock($hash, $block);
-  }
+  
 }
 
 // Creates a Buyer Block with the passed details. 
@@ -266,7 +297,7 @@ function createBankBlock($decision, $name, $currentAddress, $number, $DOB) {
 
 // Returns a SHA256 Hash of the passed array.
 function createHash($block) {
-  $hash = hash('sha256', $block.serialize(), false);
+  $hash = hash('sha256', json_encode($block), false);
   return $hash;
 }
 
@@ -284,28 +315,29 @@ function getBlockBasics() {
 
 // Adds block to Blockchain/List
 function addBlock($hash, $block) {
- $blockchain.add($hash, $block);
- $previousHash = $hash;
- $index++;
+  global $index;
+  global $previousHash;
+  global $blockchain;
+  $previousHash = $hash;
+  $blockchain[$index] = $block;
+  $index++;
+  // Add to CSV
 }
 
 // Creates a genesis block.
 function createGenesisBlock() {
-  if ($index === 0) {
     $date = getDateTime();
     $previousHash = 0;
     $data = "Genesis Block";
-    // $block = $index . $date . $previousHash . $data;
     $block = [
-      'index' => $index,
+      'index' => 0,
       'date' => $date,
       'previousHash' => $previousHash,
       'data' => $data,
     ];
     $hash = createHash($block);
-    $block = array_merge('hash', $hash);
+    $block['hash'] =  $hash;
     addBlock($hash, $block);
-  }
 }
 
 // Gets current date time() 
@@ -355,3 +387,13 @@ function tableModule() {
 TABLE;
 }
 }
+function errorMessage() {
+  echo <<<"REDIRECT"
+  <h3>Something went wrong!</h3>
+  <a href="index.php" class="nav_link">Return to homepage</a>
+</section>
+REDIRECT;
+}
+
+
+
