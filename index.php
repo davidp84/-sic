@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h1>Home Page</h1>
       <h2>Create Permit Application</h2>
-      <form id="order" >
+      <form class='shop-form' method='post' action="" onsubmit="return validatePostData()" >
       <p>Property Address</p>
       <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
       <p>Owner/Vendor Details</p>
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <input class="textfield" type='text' id="email" name='email' value=""/>
       <p>Seller Licence Number</p>
       <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
-      <input class="order-button" type='submit' name='complete-order' value='Complete Order (disabled)' disabled='true'>
+      <input class="order-button" type='submit' name='complete-order' value='Complete Order' >
       </form>
 
       <h2>Authority Approval</h2>
