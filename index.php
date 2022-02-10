@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //  if (!isset($_SESSION['propertyAddress']) || $_SESSION['propertyAddress'] == null) {
 //   errorMessage();
 // } else {
+  //run else if's for the different forms. Via $_POST['variant'].
   $result = createSellerBlock();
     // unset($_SESSION);
 // }

@@ -164,14 +164,16 @@ MEMBER;
 // Creates a Seller Block.
 // Returns the generated hash as the permit application ID.
 function createSellerBlock() {
+  // create genesis block if required. 
   if ($_SESSION['index'] == 0 ) {
     createGenesisBlock();
   }
-    $date = getDateTime();
+  // Generates block data
+    $date = getDateTime(); 
     $data = [
       'property' => $_SESSION['propertyAddress'],
       'owner' => $_SESSION['ownerDetails'],
-      'design' => $_SESSION['buildingDesign'],
+      'design' => $_SESSION['buildingDesign'], // Change design to pdf
       'licence' => $_SESSION['licence'],
     ];
     $block = [
@@ -180,87 +182,103 @@ function createSellerBlock() {
       'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+    // Creates hash of the block data
     $hash = createHash($block);
+    // Adds the hash to the block data
     $block['hash'] =  $hash;
+    // Adds block to blockchain
     addBlock($hash, $block);
     return $hash;
   }
 
 // Creates an Authority Block with the passed details. 
-function createAuthorityBlock($decision, $property) {
+function createAuthorityBlock() {
+  // create genesis block if required.
   if ($_SESSION['index'] == 0 ) {
     createGenesisBlock();
   }
-
+  // Generates block data
     $date = getDateTime();
     $data = [
-      'decision' => $decision,
-      'property' => $property,
+      'decision' => $_SESSION['decision'],
+      'property' => $_SESSION['property'],
     ];
     $block = [
-      'index' => $index,
+      'index' => $_SESSION['index'],
       'date' => $date,
-      'previousHash' => $previousHash,
+      'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+    // Creates hash of the block data
     $hash = createHash($block);
-    $block = array_merge('hash', $hash);
+    // Adds the hash to the block data
+    $block['hash'] =  $hash;
+    // Adds block to blockchain
     addBlock($hash, $block);
   
 }
 
 // Creates a Buyer Block with the passed details. 
 // Returns the generated hash as the Loan Application ID.
-function createBuyerBlock($name, $DOB, $currentAddress, $number, 
-                          $employer, $income, $propertyAddress, $loanAmount) {
+function createBuyerBlock() {
+  // create genesis block if required.
   if ($_SESSION['index'] == 0 ) {
     createGenesisBlock();
   }
+  // Generates block data
     $date = getDateTime();
     $data = [
-      'name' => $name,
-      'DOB' => $DOB,
-      'currentAddress' => $currentAddress,
-      'number' => $number,
-      'employer' => $employer,
-      'income' => $income,
-      'propertyAddress' => $propertyAddress,
-      'loanAmount' => $loanAmount,
+      'name' => $_SESSION['name'],
+      'DOB' => $_SESSION['DOB'],
+      'currentAddress' => $_SESSION['currentAddress'],
+      'number' => $_SESSION['number'],
+      'employer' => $_SESSION['employer'],
+      'income' => $_SESSION['income'],
+      'propertyAddress' => $_SESSION['propertyAddress'],
+      'loanAmount' => $_SESSION['loanAmount'],
     ];
     $block = [
-      'index' => $index,
+      'index' => $_SESSION['index'],
       'date' => $date,
-      'previousHash' => $previousHash,
+      'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+    // Creates hash of the block data
     $hash = createHash($block);
-    $block = array_merge('hash', $hash);
+    // Adds the hash to the block data
+    $block['hash'] =  $hash;
+    // Adds block to blockchain
     addBlock($hash, $block);
     return $hash;
   
 }
 
 // Creates a Bank Block with the passed String. 
-function createBankBlock($decision, $name, $currentAddress, $number, $DOB) {
+function createBankBlock() {
+  // create genesis block if required.
   if ($_SESSION['index'] == 0 ) {
     createGenesisBlock();
   }
+  // Generates block data
     $date = getDateTime();
     $data = [
-      'decision' => $decision,
-      'name' => $name,
-      'currentAddress' => $currentAddress,
-      'number' => $number,
-      'DOB' => $DOB,
+      'decision' => $_SESSION['decision'],
+      'name' => $_SESSION['name'],
+      'currentAddress' => $_SESSION['currentAddress'],
+      'number' => $_SESSION['number'],
+      'DOB' => $_SESSION['DOB'],
     ];
     $block = [
-      'index' => $index,
+      'index' => $_SESSION['index'],
       'date' => $date,
-      'previousHash' => $previousHash,
+      'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+    // Creates hash of the block data
     $hash = createHash($block);
-    $block = array_merge('hash', $hash);
+    // Adds the hash to the block data
+    $block['hash'] =  $hash;
+    // Adds block to blockchain
     addBlock($hash, $block);
     return $hash;
   
