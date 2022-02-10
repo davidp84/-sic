@@ -181,6 +181,11 @@ function createSellerBlock() {
       'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+        // unsets all temporarily used session data. 
+        unset($_SESSION['propertyAddress']);
+        unset($_SESSION['ownerDetails']);
+        unset($_SESSION['buildingDesign']);
+        unset($_SESSION['licence']);
     // Creates hash of the block data
     $hash = createHash($block);
     // Adds the hash to the block data
@@ -208,6 +213,9 @@ function createAuthorityBlock() {
       'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+        // unsets all temporarily used session data. 
+        unset($_SESSION['decision']);
+        unset($_SESSION['property']);
     // Creates hash of the block data
     $hash = createHash($block);
     // Adds the hash to the block data
@@ -242,6 +250,15 @@ function createBuyerBlock() {
       'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+    // unsets all temporarily used session data. 
+    unset($_SESSION['name']);
+    unset($_SESSION['DOB']);
+    unset($_SESSION['currentAddress']);
+    unset($_SESSION['number']);
+    unset($_SESSION['employer']);
+    unset($_SESSION['income']);
+    unset($_SESSION['propertyAddress']);
+    unset($_SESSION['loanAmount']);
     // Creates hash of the block data
     $hash = createHash($block);
     // Adds the hash to the block data
@@ -273,6 +290,12 @@ function createBankBlock() {
       'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
+        // unsets all temporarily used session data. 
+        unset($_SESSION['decision']);
+        unset($_SESSION['name']);
+        unset($_SESSION['currentAddress']);
+        unset($_SESSION['number']);
+        unset($_SESSION['DOB']);
     // Creates hash of the block data
     $hash = createHash($block);
     // Adds the hash to the block data
