@@ -66,47 +66,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </form>
 
       <h2>Authority Approval</h2>
-      <form id="order" >
+      <form class='shop-form' method='post' action=""  >
       <p>Decision</p>
-      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <input class="textfield" type='text' id="decision" name='decision' value=""/>
       <p>Property Address</p>
-      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
-      <input class="order-button" type='submit' name='complete-order' value='Complete Order (disabled)' disabled='true'>
+      <input class="address" type='text' id="address" name='address' value=""/><br><br>
+      <input class="order-button" type='submit' name='complete-order' value='Complete Order'>
       </form>
 
       <h2>Loan Application</h2>
-      <form form class='shop-form' method='post' action="" onsubmit="return validatePostData()" >
+      <form class='shop-form' method='post' action=""  >
       <p>Full Name</p>
       <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
       <p>Date Of Birth</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <input class="textfield" type='text' id="dob" name='dob' value=""/>
       <p>Current Address</p>
-      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <input class="address" type='text' id="currentAddress" name='currentAddress' value=""/><br><br>
       <p>Phone Number</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(0\d\)|0\d|\+61\d|)( ?\d){8}$" value=""/>
       <p>Employer Name</p>
-      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <input class="textfield" type='text' id="employer" name='employer' value=""/>
       <p>Annual Income</p>
-      <input class="textfield" type='text' id="email" name='email' value=""/>
+      <input class="textfield" type='text' id="income" name='income' value=""/>
       <p>Address of the Property intended to buy</p>
-      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <input class="address" type='text' id="address" name='address' value=""/><br><br>
       <p>Loan Amount</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
-      <input class="order-button" type='submit' name='complete-order' value='Complete Order (disabled)' disabled='true'>
+      <input class="textfield" type='text' id="loan" name='loan' value=""/>
+      <input class="order-button" type='submit' name='complete-order' value='Complete Order'>
       </form>
 
       <h2>Bank Loan Approval</h2>
-      <form id="order" >
+      <form class='shop-form' method='post' action=""  >
       <p>Decision</p>
-      <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+      <input class="textfield" type='text' id="decision" name='decision' value=""/>
       <p>Full Name</p>
       <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
       <p>Current Address</p>
-      <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/><br><br>
+      <input class="address" type='text' id="address" name='address' value=""/><br><br>
       <p>Phone Number</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <input class="textfield" type='text' id="number" name='number' pattern="^^(\(0\d\)|0\d|\+61\d|)( ?\d){8}$" value=""/>
       <p>Date Of Birth</p>
-      <input class="textfield" type='text' id="mobile" name='mobile' pattern="^^(\(04\)|04|\+614)( ?\d){8}$" value=""/>
+      <input class="textfield" type='text' id="dob" name='dob' value=""/>
   
     </form>
 </main>
