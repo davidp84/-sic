@@ -26,11 +26,6 @@
     "Daniel" => array('passwordD', "bank")
   );
 
-  $index = 0;
-  $previousHash = "";
-  $blockchain[] = "";
-
-
   function logIO() {
     global $users;
     if (isset($_SESSION['user'])) {
@@ -166,49 +161,23 @@ MEMBER;
   }
 }
 
-// Creates a Seller Block with the passed details. 
-// Returns the generated hash as the permit application ID.
-// function createSellerBlock($address, $name, $design, $licence) {
-//   if ($index !== 0) {
-//     $date = getDateTime();
-//     $data = [
-//       'property' => $address,
-//       'owner' => $name,
-//       'design' => $design,
-//       'licence' => $licence,
-//     ];
-//     $block = [
-//       'index' => $index,
-//       'date' => $date,
-//       'previousHash' => $previousHash,
-//       'data' => $data,
-//     ];
-//     $hash = createHash($block);
-//     $block = array_merge('hash', $hash);
-//     addBlock($hash, $block);
-//     return $hash;
-//   }
-// }
-
-// Creates a Seller Block with the passed details. 
+// Creates a Seller Block.
 // Returns the generated hash as the permit application ID.
 function createSellerBlock() {
-  global $index;
-  global $previousHash;
-  if ($index === 0) {
+  if ($_SESSION['index'] == 0 ) {
     createGenesisBlock();
   }
     $date = getDateTime();
     $data = [
       'property' => $_SESSION['propertyAddress'],
       'owner' => $_SESSION['ownerDetails'],
-      'design' => $_SESSION['buildingDesigndesign'],
+      'design' => $_SESSION['buildingDesign'],
       'licence' => $_SESSION['licence'],
     ];
     $block = [
-      'index' => $index,
+      'index' => $_SESSION['index'],
       'date' => $date,
-      'previousHash' => $previousHash,
+      'previousHash' => $_SESSION['previousHash'],
       'data' => $data,
     ];
     $hash = createHash($block);
@@ -217,11 +186,9 @@ function createSellerBlock() {
     return $hash;
   }
 
-
-
 // Creates an Authority Block with the passed details. 
 function createAuthorityBlock($decision, $property) {
-  if ($index === 0) {
+  if ($_SESSION['index'] == 0 ) {
     createGenesisBlock();
   }
 
@@ -246,7 +213,9 @@ function createAuthorityBlock($decision, $property) {
 // Returns the generated hash as the Loan Application ID.
 function createBuyerBlock($name, $DOB, $currentAddress, $number, 
                           $employer, $income, $propertyAddress, $loanAmount) {
-  if ($index !== 0) {
+  if ($_SESSION['index'] == 0 ) {
+    createGenesisBlock();
+  }
     $date = getDateTime();
     $data = [
       'name' => $name,
@@ -268,12 +237,14 @@ function createBuyerBlock($name, $DOB, $currentAddress, $number,
     $block = array_merge('hash', $hash);
     addBlock($hash, $block);
     return $hash;
-  }
+  
 }
 
 // Creates a Bank Block with the passed String. 
 function createBankBlock($decision, $name, $currentAddress, $number, $DOB) {
-  if ($index !== 0) {
+  if ($_SESSION['index'] == 0 ) {
+    createGenesisBlock();
+  }
     $date = getDateTime();
     $data = [
       'decision' => $decision,
@@ -292,7 +263,7 @@ function createBankBlock($decision, $name, $currentAddress, $number, $DOB) {
     $block = array_merge('hash', $hash);
     addBlock($hash, $block);
     return $hash;
-  }
+  
 }
 
 // Returns a SHA256 Hash of the passed array.
@@ -301,27 +272,11 @@ function createHash($block) {
   return $hash;
 }
 
-// Used to get the generic info of each block.
-function getBlockBasics() {
-  if($index === 0) {
-    createGenisisBlock();
-    $string = "Block could not be added, please try again";
-    return $string;
-    } else {
-    $date = getDateTime();
-  }
-  //Previous Hash
-}
-
 // Adds block to Blockchain/List
 function addBlock($hash, $block) {
-  global $index;
-  global $previousHash;
-  global $blockchain;
-  $previousHash = $hash;
-  $blockchain[$index] = $block;
-  $index++;
-  // Add to CSV
+  $_SESSION['previousHash'] = $hash;
+  $_SESSION['blockchain'][$_SESSION['index']][$_SESSION['block']] = $block;
+  $_SESSION['index']++;
 }
 
 // Creates a genesis block.
@@ -347,46 +302,6 @@ function getDateTime() {
   return $date;
 }
 
-// Builds array of alerts from CSV File
-function getAlertsFromCSV() {
-  $alerts=[];
-  if( ($fp = fopen('alerts.txt','r')) && flock($fp, LOCK_SH) ) {
-    if (($headings = fgetcsv($fp)) !== false) {
-      while ( $cells = fgetcsv($fp) ) {
-        $numCols = count($cells);
-        for ($c=1; $c<$numCols; $c++) {
-          $alerts[$cells[0]][$headings[$c]] = $cells[$c];
-        }
-        $temp=explode('|', $alerts[$cells[0]]['Temperature'] );
-        $humidity=explode('|', $alerts[$cells[0]]['Humidity'] );
-        $date=explode('|', $alerts[$cells[0]]['Date'] );
-        $time=explode('|', $alerts[$cells[0]]['Time'] );
-      }
-    }
-    flock($fp, LOCK_UN);
-    fclose($fp);
-    return($alerts);
-  }
-}
-
-// Builds table rows from data collected from CSV file.
-function tableModule() {
-  $alerts = getAlertsFromCSV();
-  foreach ($alerts as $alert => $range) {
-  $date = $range['Date'];
-  $time = $range['Time'];
-  $temp = $range['Temperature'];
-  $humidity = $range['Humidity'];
-  echo <<<"TABLE"
-  <tr>
-    <td class="table-row">$date</td>
-    <td class="table-row">$time</td>
-    <td class="table-row">$temp&degC</td>
-    <td class="table-row">$humidity%</td>
-  </tr>
-TABLE;
-}
-}
 function errorMessage() {
   echo <<<"REDIRECT"
   <h3>Something went wrong!</h3>

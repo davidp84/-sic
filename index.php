@@ -30,19 +30,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //   errorMessage();
 // } else {
   $result = createSellerBlock();
-   // unset($_SESSION);
+    // unset($_SESSION);
 // }
 
 
-echo "\n\n<pre id='debug'>";
-print_r($_POST);
-print_r($_SESSION);
-foreach($blockchain as $key => $value){
-  print_r($key);
-  print_r("has the value");
-  print_r($value);
-}
-echo "</pre>\n\n";
+// echo "\n\n<pre id='debug'>";
+// print_r($_POST);
+// print_r($_SESSION);
+// foreach($blockchain as $key => $value){
+//   print_r($key);
+//   print_r("has the value");
+//   print_r($value);
+// }
+// echo "</pre>\n\n";
 }  
   navContent();   
     
