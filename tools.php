@@ -1,7 +1,6 @@
 <?php
   session_start();
   error_reporting( E_ERROR | E_WARNING | E_PARSE);
-  $alerts = getAlertsFromCSV();
 
   function debugModule() {
     echo "\n\n<pre id='debug'>";
@@ -295,6 +294,8 @@ function addBlock($hash, $block) {
   $_SESSION['previousHash'] = $hash;
   $_SESSION['blockchain'][$_SESSION['index']][$_SESSION['block']] = $block;
   $_SESSION['index']++;
+  // Outputs the blockchain to csv file for teacher's ease.
+  blockchainOutput();
 }
 
 // Creates a genesis block.
@@ -318,6 +319,14 @@ function getDateTime() {
   date_default_timezone_set('Australia/Melbourne');
   $date = date('d/m/y h:i:s a', time());
   return $date;
+}
+
+function blockchainOutput() {
+  foreach($_SESSION['blockchain'][$_SESSION['index']][$_SESSION['block']] as $chain => $session) {
+  $block = $session."\n";
+
+  file_put_contents('blockchain_output.txt', $block, FILE_APPEND | LOCK_EX);
+  }
 }
 
 function errorMessage() {
