@@ -28,6 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $_SESSION['licence'] = $_POST['licence'];
   unset($_POST);
   $result = createSellerBlock();
+  // echo '<script type="javascript">';
+  // echo ' alert("Your Permit Application ID is: " + <?php $result (?/> )
+  // echo '</script>';
+  // errorMessage();
  } else if ($_POST['variant'] == "authority") {
   $_SESSION['decision'] = $_POST['decision'];
   $_SESSION['property'] = $_POST['address'];

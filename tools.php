@@ -25,23 +25,25 @@
     "Daniel" => array('passwordD', "bank")
   );
 
-  function logIO() {
-    global $users;
-    if (isset($_SESSION['user'])) {
-      unset($_SESSION['user']);
-    } else {
-      if (!empty($_REQUEST['user']) && !empty($_REQUEST['password']) && !empty($_REQUEST['variant'])) {
-        if (key_exists($_REQUEST['user'], $users)) {
-          if (strcmp($users[$_REQUEST['user']], 
-              $_REQUEST['password'], $_REQUEST['variant']) === 0) {   
-                echo "This worked";
-                // break this up into different string compares.
-              $_SESSION['user'] = $_REQUEST['user'];
+   function logIO() {
+     global $users;
+     if (isset($_SESSION['user'])) {
+       unset($_SESSION['user']);
+     } else {
+        if (!empty($_REQUEST['user']) && !empty($_REQUEST['password'])) {
+          if (key_exists($_REQUEST['user'], $users)) {
+            if (strcmp($users[$_REQUEST['user']], $_REQUEST['password'] === 0)) {   
+                //  if (strcmp($users[$_REQUEST['variant']] === 0)) { 
+                  echo "This worked";
+                   $_SESSION['user'] = $_REQUEST['user'];
+                //  }
           }
-        }
-      }
+         }
+       }
     }
-  }
+}
+
+
 
   function topModule($title) {
   echo <<<"TOP"
@@ -318,7 +320,7 @@ function addBlock($hash, $block) {
   $_SESSION['blockchain'][$_SESSION['index']][$_SESSION['block']] = $block;
   $_SESSION['index']++;
   // Outputs the blockchain to csv file for teacher's ease.
-  blockchainOutput();
+  blockchainOutput($block);
 }
 
 // Creates a genesis block.
@@ -344,14 +346,10 @@ function getDateTime() {
   return $date;
 }
 
-// Prints out the blockchain array to a csv file.
-// Needs to be implemented that only new blocks are added,
-// instead of the whole thing each time.
-function blockchainOutput() {
-  foreach($_SESSION['blockchain'] as $chain => $session) {
-    $block = json_encode($session)."\n";
-    file_put_contents('blockchain_output.txt', $block, FILE_APPEND | LOCK_EX);
-  }
+// Writes out the newly created block to a csv file.
+function blockchainOutput($block) {
+    $block1 = json_encode($block)."\n";
+    file_put_contents('blockchain_output.txt', $block1, FILE_APPEND | LOCK_EX);
 }
 
 function errorMessage() {
