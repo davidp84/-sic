@@ -344,6 +344,9 @@ function getDateTime() {
   return $date;
 }
 
+// Prints out the blockchain array to a csv file.
+// Needs to be implemented that only new blocks are added,
+// instead of the whole thing each time.
 function blockchainOutput() {
   foreach($_SESSION['blockchain'] as $chain => $session) {
     $block = json_encode($session)."\n";
