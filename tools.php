@@ -346,9 +346,8 @@ function getDateTime() {
 
 function blockchainOutput() {
   foreach($_SESSION['blockchain'] as $chain => $session) {
-  $block = $session['index']."\n";
-  $block .= $session['block']."\n";
-  file_put_contents('blockchain_output.txt', $block, FILE_APPEND | LOCK_EX);
+    $block = json_encode($session)."\n";
+    file_put_contents('blockchain_output.txt', $block, FILE_APPEND | LOCK_EX);
   }
 }
 
