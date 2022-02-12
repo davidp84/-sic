@@ -169,7 +169,7 @@ FORM;
 function authorityApproval() {
   echo <<<"FORM"
   <h2>Authority Approval</h2>
-  <form class='shop-form' method='post' action=""  >
+  <form class='shop-form' method='post' action="process_form.php"  >
   <input type='hidden' id="variant" name='variant' value="authority" />
   <p>Decision</p>
   <input class="textfield" type='text' id="decision" name='decision' value=""/>
@@ -184,7 +184,7 @@ FORM;
 function loanApplication() {
   echo <<<"FORM"
   <h2>Loan Application</h2>
-  <form class='shop-form' method='post' action=""  >
+  <form class='shop-form' method='post' action="process_form.php"  >
   <input type='hidden' id="variant" name='variant' value="loan" />
   <p>Full Name</p>
   <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
@@ -201,7 +201,7 @@ function loanApplication() {
   <p>Address of the Property intended to buy</p>
   <input class="address" type='text' id="address" name='address' value=""/>
   <p>Loan Amount</p>
-  <input class="textfield" type='text' id="loan" name='loan' value=""/>
+  <input class="textfield" type='text' id="loanAmount" name='loanAmount' value=""/>
   <input class="order-button" type='submit' name='loan' value='Create Loan Application'>
   </form>
 FORM;
@@ -211,7 +211,7 @@ FORM;
 function bankLoanApproval() {
   echo <<<"FORM"
   <h2>Bank Loan Approval</h2>
-  <form class='shop-form' method='post' action=""  >
+  <form class='shop-form' method='post' action="process_form.php"  >
   <input type='hidden' id="variant" name='variant' value="bank" />
   <p>Decision</p>
   <input class="textfield" type='text' id="decision" name='decision' value=""/>

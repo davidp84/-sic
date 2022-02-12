@@ -9,8 +9,7 @@ $result = '';
 
 topModule("Homelink");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  require("post-validation-seller.php"); // Required for server side validation
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (isset($_POST['status'])) {
     LogIO();
@@ -58,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //   $result = createBankBlock();
 //  }
 
-}  
+// }  
   navContent();   
     
 ?>
