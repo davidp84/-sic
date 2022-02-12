@@ -289,7 +289,9 @@ function uploadFile($file) {
     if(move_uploaded_file($_FILES['design']['tmp_name'], $targetFolder)) {
         echo "The file ". basename( $_FILES['design']['name']). " is uploaded" . "<br>";
       } else {
+        echo "<br>";
         echo "Problem uploading file";
+        echo "<br>";
       }   
   } else {
      echo "You may only upload PDFs.<br>";
