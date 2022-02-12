@@ -282,7 +282,7 @@ function updateDealStatus($decision, $address) {
 
 // uploads the file
 function uploadFile($file) {
-  $targetFolder = "uploads/";
+  $targetFolder = "./uploads/";
   $targetFolder = $targetFolder . basename($hashedFile);
   $fileType = $_FILES['design']['type'];
   if ($fileType == "application/pdf") {
