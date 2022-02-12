@@ -150,8 +150,6 @@ img {
 }
 
 footer {
-  /* padding: 10px;
-  margin-top: 500px; */
   grid-area: ft;
   padding: 10px;
   font-weight: 600;

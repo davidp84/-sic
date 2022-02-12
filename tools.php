@@ -2,11 +2,16 @@
   session_start();
   error_reporting( E_ERROR | E_WARNING | E_PARSE);
 
+  // Prints arrays to screen.
   function debugModule() {
     echo "\n\n<pre id='debug'>";
+    print_r("POST\n");
     print_r($_POST);
+    print_r("SESSION\n");
     print_r($_SESSION);
+    print_r("REQUEST\n");
     print_r($_REQUEST);
+    print_r("FILES\n");
     print_r($_FILES);
     echo "</pre>\n\n";
 }
@@ -438,14 +443,6 @@ function getDateTime() {
 function blockchainOutput($block) {
     $block1 = json_encode($block)."\n";
     file_put_contents('blockchain_output.txt', $block1, FILE_APPEND | LOCK_EX);
-}
-
-function errorMessage() {
-  echo <<<"REDIRECT"
-  <h3>Something went wrong!</h3>
-  <a href="index.php" class="nav_link">Return to homepage</a>
-</section>
-REDIRECT;
 }
 
 
