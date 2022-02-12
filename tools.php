@@ -150,7 +150,7 @@ function formBuilder() {
 function permitApplication() {
   echo <<<"FORM"
   <h2>Create Permit Application</h2>
-  <form class='shop-form' method='post' action="" enctype="multipart/form-data" >
+  <form class='shop-form' method='post' action="process_form.php" enctype="multipart/form-data" >
   <input type='hidden' id="variant" name='variant' value="permit" />
   <p>Property Address</p>
   <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/>
