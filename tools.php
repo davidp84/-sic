@@ -20,30 +20,26 @@
   */
 
   $users = array(
-    "Alice" => array('passwordA', 'seller'),
-    "Bob" => array('passwordB', 'authority'),
-    "Carol" => array('passwordC', 'buyer'),
-    "Daniel" => array('passwordD', "bank")
+    "Alice" => 'passwordA',
+    "Bob" => 'passwordB',
+    "Carol" => 'passwordC',
+    "Daniel" => 'passwordD',
   );
 
    function logIO() {
      global $users;
-     if (isset($_SESSION['user'])) {
-       unset($_SESSION['user']);
-     } else {
+    //  if (isset($_SESSION['user'])) {
+    //    unset($_SESSION['user']);
+    //  } else {
         if (!empty($_REQUEST['user']) && !empty($_REQUEST['password'])) {
           if (key_exists($_REQUEST['user'], $users)) {
             if (strcmp($users[$_REQUEST['user']], $_REQUEST['password'] === 0)) {   
-                //  if (strcmp($users[$_REQUEST['variant']] === 0)) { 
-                  echo "This worked";
                    $_SESSION['user'] = $_REQUEST['user'];
-                //  }
           }
          }
        }
     }
-}
-
+// }
 
 
   function topModule($title) {
@@ -107,7 +103,6 @@ function navContent() {
       <div>Logged in as $user</div>
       <ul>
         <li><a href="./">Home</a></li>
-        <li><a href="./members.php">Members</a></li>
         <li><form class='login' method='post'>
         <input type=hidden id='status' name='status' value='Logout' />
         <input class='btn' type='SUBMIT' value='Logout' />
@@ -120,24 +115,12 @@ NAV;
     <nav>
       <ul>
         <li><a href="./">Home</a></li>
-        <li><a href="./members.php">Members</a></li>
         <li><input type='button' class='login-btn' id='login-btn' onclick='toggleLogin()' value='Login' /></li>
       </ul>
       <form class='login' id=login method='post' hidden>
         <input type=hidden id='status' name='status' value='Login' />
         <input type='text' id="user" name='user' placeholder='username' required />
         <input type='text' id="password" name='password' placeholder='password' required />
-        <fieldset class="login-types">
-        <label>User Type</label>
-        <input type='radio' id="seller" value='seller' name='variant' checked="checked" required />
-        <label for='seller'>Seller</label>
-        <input type='radio' id="authority" value='authority' name='variant' />
-        <label for='authority'>Authority</label>
-        <input type='radio' id="buyer" value='buyer' name='variant' />
-        <label for='buyer'>Buyer</label>
-        <input type='radio' id="bank" value='bank' name='variant' />
-        <label for='bank'>Bank</label>
-        </fieldset>
         <input class='btn' type='SUBMIT' value='Login' />
       </form>
       
@@ -146,21 +129,103 @@ NAV;
   }
 }
 
-// Need to amend to current project. Maybe display the search function and relevant form.
-function membersContent() {
+// Calls the relevant method to display the correct form based on the user's role 
+function formBuilder() {
   if(isset($_SESSION['user'])) {
-    echo <<<"MEMBER"
-      <main>
-        <h1>Members Only Page</h1>
-        <p><img src='website-under-construction.png' alt='Website Under Construction' /></p>
-MEMBER;
+    if ($_SESSION['user'] === "Alice") {
+      permitApplication();
+    } else if ($_SESSION['user'] === "Bob") {
+      authorityApproval();
+    } else if ($_SESSION['user'] === "Carol") {
+      loanApplication();
+    } else if ($_SESSION['user'] === "Daniel") {
+      bankLoanApproval();
+    } 
   } else {
-    echo <<<"MEMBER"
-    <main>
-      <h1>Members Only Page</h1>
-      <p>This page is for members only</p>
-MEMBER;
+    echo "Please log in to access the site content's!";
   }
+}
+
+// displays the permit application form
+function permitApplication() {
+  echo <<<"FORM"
+  <h2>Create Permit Application</h2>
+  <form class='shop-form' method='post' action="" enctype="multipart/form-data" >
+  <input type='hidden' id="variant" name='variant' value="permit" />
+  <p>Property Address</p>
+  <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/>
+  <p>Owner/Vendor Details</p>
+  <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+  <p>Building Design</p>
+  <input class="textfield" type='file' id="design" name='design' value="upload"/>
+  <p>Seller Licence Number</p>
+  <input class="textfield" type='text' id="licence" name='licence' value=""/>
+  <input class="order-button" type='submit' name='permit' value='Create Permit Application' >
+  </form>
+FORM;
+}
+
+// displays the authority approval form
+function authorityApproval() {
+  echo <<<"FORM"
+  <h2>Authority Approval</h2>
+  <form class='shop-form' method='post' action=""  >
+  <input type='hidden' id="variant" name='variant' value="authority" />
+  <p>Decision</p>
+  <input class="textfield" type='text' id="decision" name='decision' value=""/>
+  <p>Property Address</p>
+  <input class="address" type='text' id="address" name='address' value=""/><br><br>
+  <input class="order-button" type='submit' name='authority' value='Create Athority Approval'>
+  </form>
+FORM;
+}
+
+// displays the loan application form
+function loanApplication() {
+  echo <<<"FORM"
+  <h2>Loan Application</h2>
+  <form class='shop-form' method='post' action=""  >
+  <input type='hidden' id="variant" name='variant' value="loan" />
+  <p>Full Name</p>
+  <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+  <p>Date Of Birth</p>
+  <input class="textfield" type='text' id="dob" name='dob' value=""/>
+  <p>Current Address</p>
+  <input class="address" type='text' id="currentAddress" name='currentAddress' value=""/>
+  <p>Phone Number</p>
+  <input class="textfield" type='text' id="number" name='number' pattern="^^(\(0\d\)|0\d|\+61\d|)( ?\d){8}$" value=""/>
+  <p>Employer Name</p>
+  <input class="textfield" type='text' id="employer" name='employer' value=""/>
+  <p>Annual Income</p>
+  <input class="textfield" type='text' id="income" name='income' value=""/>
+  <p>Address of the Property intended to buy</p>
+  <input class="address" type='text' id="address" name='address' value=""/>
+  <p>Loan Amount</p>
+  <input class="textfield" type='text' id="loan" name='loan' value=""/>
+  <input class="order-button" type='submit' name='loan' value='Create Loan Application'>
+  </form>
+FORM;
+}
+
+// displays the bank loan approval form
+function bankLoanApproval() {
+  echo <<<"FORM"
+  <h2>Bank Loan Approval</h2>
+  <form class='shop-form' method='post' action=""  >
+  <input type='hidden' id="variant" name='variant' value="bank" />
+  <p>Decision</p>
+  <input class="textfield" type='text' id="decision" name='decision' value=""/>
+  <p>Full Name</p>
+  <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
+  <p>Current Address</p>
+  <input class="address" type='text' id="address" name='address' value=""/>
+  <p>Phone Number</p>
+  <input class="textfield" type='text' id="number" name='number' pattern="^^(\(0\d\)|0\d|\+61\d|)( ?\d){8}$" value=""/>
+  <p>Date Of Birth</p>
+  <input class="textfield" type='text' id="dob" name='dob' value=""/>
+  <input class="order-button" type='submit' name='bank' value='Create Bank Loan Approval'>
+</form> -->
+FORM;
 }
 
 // uploads the file

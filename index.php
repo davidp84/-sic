@@ -26,17 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $_SESSION['ownerDetails'] = $_POST['name'];
   $file = $_FILES;
   $hashedfile = hashFile($file);
-  print_r("this right here");
-  print_r($file);
-  // uploadFile($file);
+  uploadFile($file);
   $_SESSION['buildingDesign'] = $file;
   $_SESSION['licence'] = $_POST['licence'];
   unset($_POST);
   $result = createSellerBlock();
-  // echo '<script type="javascript">';
-  // echo ' alert("Your Permit Application ID is: " + <?php $result (?/> )
-  // echo '</script>';
-  // errorMessage();
+  echo "Your Permit ID is: " . $result;
  } else if ($_POST['variant'] == "authority") {
   $_SESSION['decision'] = $_POST['decision'];
   $_SESSION['property'] = $_POST['address'];
@@ -71,7 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <main>
 
 <h1>Home Page</h1>
-      <h2>Create Permit Application</h2>
+
+<?= formBuilder(); ?>
+      <!-- <h2>Create Permit Application</h2>
       <form class='shop-form' method='post' action="" enctype="multipart/form-data" >
       <input type='hidden' id="variant" name='variant' value="permit" />
       <p>Property Address</p>
@@ -131,8 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <p>Date Of Birth</p>
       <input class="textfield" type='text' id="dob" name='dob' value=""/>
       <input class="order-button" type='submit' name='bank' value='Create Bank Loan Approval'>
-    </form>
+    </form> -->
 </main>
 
-<?= footerModule() ?>
-<?= debugModule() ?>
+<?= footerModule(); ?>
+<!-- Uncomment the debugModule to view arrays at bottom of webpage -->
+<!-- <?= debugModule(); ?> --> 
+
