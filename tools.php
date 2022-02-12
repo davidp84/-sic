@@ -70,12 +70,12 @@ rel="stylesheet">
 <body onload='loadForm()'>
 <div class='main-grid'>  
 <header class='logo-header'>
-<!-- <img class='logo-head' src='../media/logo.jpg'> -->
+<!-- <img class='logo-head' src='../media/homelink.jpg'> -->
   <h2 class='company-name'>Homelink</h2>
   <a href='index.php'>
     <!-- img used for educational purposes only, note this will be relpaced with a new logo -->
     <!-- dilayorganci, 2017. Home Link. Free icons for everything - noun project. Available at: https://thenounproject.com/icon/home-link-815698/ [Accessed February 6, 2022]. -->
-  <img class='logo' src='../../media/homelink.png ' alt='The homelink Company Logo' height="150">
+  <img class='logo' src='../media/homelink.png ' alt='The homelink Company Logo' height="150">
   </a>
 </header>
 
