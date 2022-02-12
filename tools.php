@@ -147,7 +147,7 @@ function formBuilder() {
       bankLoanApproval();
     } 
   } else {
-    echo "Please log in to access the site content's!";
+    echo "Please log in to access the site!";
   }
 }
 
@@ -167,6 +167,14 @@ function permitApplication() {
   <input class="textfield" type='text' id="licence" name='licence' value=""/>
   <input class="order-button" type='submit' name='permit' value='Create Permit Application' >
   </form>
+
+  <h2>Search for loan Application</h2>
+  <form class='shop-form' method='post' action="process_form.php"  >
+  <input type='hidden' id="variant" name='variant' value="loanSearch" />
+  <p>Please enter Loan Application id</p>
+  <input class="textfield" type='text' id="loanSearchID" name='loanSearchID' value=""/>
+  <input class="order-button" type='submit' name='searchLoan' value='searchLoan'>
+  </form>
 FORM;
 }
 
@@ -180,7 +188,7 @@ function authorityApproval() {
   <input class="textfield" type='text' id="decision" name='decision' value=""/>
   <p>Property Address</p>
   <input class="address" type='text' id="address" name='address' value=""/><br><br>
-  <input class="order-button" type='submit' name='authority' value='Create Athority Approval'>
+  <input class="order-button" type='submit' name='authority' value='Create Authority Approval'>
   </form>
 FORM;
 }
@@ -209,6 +217,14 @@ function loanApplication() {
   <input class="textfield" type='text' id="loanAmount" name='loanAmount' value=""/>
   <input class="order-button" type='submit' name='loan' value='Create Loan Application'>
   </form>
+
+  <h2>Search for a Deal</h2>
+  <form class='shop-form' method='post' action="process_form.php"  >
+  <input type='hidden' id="variant" name='variant' value="dealSearch" />
+  <p>Please enter permit id</p>
+  <input class="textfield" type='text' id="dealSearchID" name='dealSearchID' value=""/>
+  <input class="order-button" type='submit' name='searchDeal' value='searchDeal'>
+  </form>
 FORM;
 }
 
@@ -218,7 +234,7 @@ function bankLoanApproval() {
   <h2>Bank Loan Approval</h2>
   <form class='shop-form' method='post' action="process_form.php"  >
   <input type='hidden' id="variant" name='variant' value="bank" />
-  <p>Decision</p>
+  <p>Decision (Please enter Approved or Declined)</p>
   <input class="textfield" type='text' id="decision" name='decision' value=""/>
   <p>Full Name</p>
   <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
@@ -229,8 +245,39 @@ function bankLoanApproval() {
   <p>Date Of Birth</p>
   <input class="textfield" type='text' id="dob" name='dob' value=""/>
   <input class="order-button" type='submit' name='bank' value='Create Bank Loan Approval'>
-</form> -->
+  </form>
+
+  <h2>Search for a Permit</h2>
+  <form class='shop-form' method='post' action="process_form.php"  >
+  <input type='hidden' id="variant" name='variant' value="permitSearch" />
+  <p>Please enter permit id</p>
+  <input class="textfield" type='text' id="permitSearchID" name='permitSearchID' value=""/>
+  <input class="order-button" type='submit' name='searchPermit' value='searchPermit'>
+  </form>
 FORM;
+}
+
+// adds deal status to blockchain.
+function updateDealStatus($decision, $address) {
+    // Generates block data
+    $date = getDateTime(); 
+    $data = [
+      'propertyOutcome' => $address,
+      'decision' => $decision,
+    ];
+    $block = [
+      'index' => $_SESSION['index'],
+      'date' => $date,
+      'previousHash' => $_SESSION['previousHash'],
+      'data' => $data,
+    ];
+    // Creates hash of the block data
+    $hash = createHash($block);
+    // Adds the hash to the block data
+    $block['hash'] =  $hash;
+    // Adds block to blockchain
+    addBlock($hash, $block);
+    return $hash;
 }
 
 // uploads the file
@@ -387,7 +434,7 @@ function createBankBlock() {
     ];
         // unsets all temporarily used session data. 
         unset($_SESSION['decision']);
-        unset($_SESSION['name']);
+        unset($_SESSION['customerName']);
         unset($_SESSION['currentAddress']);
         unset($_SESSION['number']);
         unset($_SESSION['DOB']);

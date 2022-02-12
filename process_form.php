@@ -9,6 +9,7 @@
   // and calls the method to create the relevant block. Also unsets 
   // the POST data. 
   // Displays relevant receipts. 
+  // Displays search results.
   if ($_POST['variant'] == "permit") {
     $_SESSION['propertyAddress'] = $_POST['address'];
     $_SESSION['ownerDetails'] = $_POST['name'];
@@ -50,6 +51,50 @@
     unset($_POST);
     $result = createBankBlock();
     echo "Your decision has been saved";
+    echo "<a href=index.php>Click here to return to homepage</a>";
+   } else if ($_POST['variant'] == "permitSearch") {
+    $id = $_POST['permitSearchID'];
+    foreach ($_SESSION['blockchain'] as $block => $chain) {
+      if (strcmp($chain['']['hash'], $id) === 0) {
+        $property = $chain['']['data']['property'];
+      }
+    }
+    foreach ($_SESSION['blockchain'] as $block => $chain) {
+      if (strcmp($chain['']['data']['property'], $property) === 0) {
+        $decision = $chain['']['data']['decision'];
+      }
+    }
+    echo "Status is '" . $decision . "'";
+    echo "<a href=index.php>Click here to return to homepage</a>";
+   } else if ($_POST['variant'] == "loanSearch") {
+    $id = $_POST['loanSearchID'];
+    foreach ($_SESSION['blockchain'] as $block => $chain) {
+      if (strcmp($chain['']['hash'], $id) === 0) {
+        $name = $chain['']['data']['name'];
+        $address = $chain['']['data']['propertyAddress'];
+      }
+    }
+    foreach ($_SESSION['blockchain'] as $block => $chain) {
+      if (strcmp($chain['']['data']['name'], $name) === 0) {
+        $decision = $chain['']['data']['decision'];
+      }
+    }
+    echo "Status of loan is '" . $decision . "'";
+    updateDealStatus($decision, $address);  
+    echo "<a href=index.php>Click here to return to homepage</a>";
+   } else if ($_POST['variant'] == "dealSearch") {
+    $id = $_POST['dealSearchID'];
+    foreach ($_SESSION['blockchain'] as $block => $chain) {
+        if (strcmp($chain['']['hash'], $id) === 0) {
+          $property = $chain['']['data']['property'];
+        }
+    }
+    foreach ($_SESSION['blockchain'] as $block => $chain) {
+      if (strcmp($chain['']['data']['propertyOutcome'], $property) === 0) {
+        $status = $chain['']['data']['decision'];
+      }
+    }
+    echo "Status of the deal is '" . $status . "'";
     echo "<a href=index.php>Click here to return to homepage</a>";
    }
 
