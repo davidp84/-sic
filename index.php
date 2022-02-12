@@ -24,7 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($_POST['variant'] == "permit") {
   $_SESSION['propertyAddress'] = $_POST['address'];
   $_SESSION['ownerDetails'] = $_POST['name'];
-  $_SESSION['buildingDesign'] = $_POST['design'];
+  $file = $_FILES;
+  $hashedfile = hashFile($file);
+  print_r("this right here");
+  print_r($file);
+  // uploadFile($file);
+  $_SESSION['buildingDesign'] = $file;
   $_SESSION['licence'] = $_POST['licence'];
   unset($_POST);
   $result = createSellerBlock();
@@ -67,14 +72,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h1>Home Page</h1>
       <h2>Create Permit Application</h2>
-      <form class='shop-form' method='post' action=""  >
+      <form class='shop-form' method='post' action="" enctype="multipart/form-data" >
       <input type='hidden' id="variant" name='variant' value="permit" />
       <p>Property Address</p>
       <input class="address" type='text' id="address" name='address' pattern="^[\da-zA-Z '\-\/.,]+$" value=""/>
       <p>Owner/Vendor Details</p>
       <input class="textfield" type='text' id="name" name='name' pattern="^[a-zA-Z '\-.]+$" value=""/>
       <p>Building Design</p>
-      <input class="textfield" type='text' id="design" name='design' value=""/>
+      <input class="textfield" type='file' id="design" name='design' value="upload"/>
       <p>Seller Licence Number</p>
       <input class="textfield" type='text' id="licence" name='licence' value=""/>
       <input class="order-button" type='submit' name='permit' value='Create Permit Application' >

@@ -7,6 +7,7 @@
     print_r($_POST);
     print_r($_SESSION);
     print_r($_REQUEST);
+    print_r($_FILES);
     echo "</pre>\n\n";
 }
 
@@ -162,6 +163,28 @@ MEMBER;
   }
 }
 
+// uploads the file
+function uploadFile($file) {
+  $targetFolder = "uploads/";
+  $targetFolder = $targetFolder . basename( $_FILES['design'][$file]);
+  $fileType = $_FILES['design']['type'];
+
+  if ($fileType == "application/pdf") {
+    if(move_uploaded_file($_FILES['design'][$file], $targetFolder)) {
+        echo "The file ". basename( $_FILES['design']['name']). " is uploaded";
+      } else {
+        echo "Problem uploading file";
+      }   
+  } else {
+     echo "You may only upload PDFs.<br>";
+  }
+}
+
+// hashes the file to add to blockchain.
+function hashFile($file) {
+  return hash_file('sha256', $file);
+}
+
 // Creates a Seller Block.
 // Returns the generated hash as the permit application ID.
 function createSellerBlock() {
@@ -174,7 +197,7 @@ function createSellerBlock() {
     $data = [
       'property' => $_SESSION['propertyAddress'],
       'owner' => $_SESSION['ownerDetails'],
-      'design' => $_SESSION['buildingDesign'], // Change design to pdf
+      'design' => $_SESSION['buildingDesign'], 
       'licence' => $_SESSION['licence'],
     ];
     $block = [
