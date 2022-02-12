@@ -9,7 +9,7 @@ $result = '';
 
 topModule("Homelink");
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (isset($_POST['status'])) {
     LogIO();
@@ -57,7 +57,7 @@ topModule("Homelink");
 //   $result = createBankBlock();
 //  }
 
-// }  
+ }  
   navContent();   
     
 ?>

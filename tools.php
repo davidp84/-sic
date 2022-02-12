@@ -28,18 +28,18 @@
 
    function logIO() {
      global $users;
-    //  if (isset($_SESSION['user'])) {
-    //    unset($_SESSION['user']);
-    //  } else {
+      if (isset($_SESSION['user'])) {
+        unset($_SESSION['user']);
+      } else {
         if (!empty($_REQUEST['user']) && !empty($_REQUEST['password'])) {
           if (key_exists($_REQUEST['user'], $users)) {
-            if (strcmp($users[$_REQUEST['user']], $_REQUEST['password'] === 0)) {   
+            if (strcmp($users[$_REQUEST['user']], $_REQUEST['password']) === 0) {   
                    $_SESSION['user'] = $_REQUEST['user'];
           }
          }
        }
     }
-// }
+}
 
 
   function topModule($title) {
