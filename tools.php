@@ -70,7 +70,7 @@ rel="stylesheet">
 <body onload='loadForm()'>
 <div class='main-grid'>  
 <header class='logo-header'>
-<!-- <img class='logo-head' src='../../media/logo.jpg'> -->
+<!-- <img class='logo-head' src='../media/logo.jpg'> -->
   <h2 class='company-name'>Homelink</h2>
   <a href='index.php'>
     <!-- img used for educational purposes only, note this will be relpaced with a new logo -->
@@ -283,7 +283,6 @@ function updateDealStatus($decision, $address) {
 // uploads the file
 function uploadFile($file) {
   $targetFolder = "uploads/";
-  // $targetFolder = $targetFolder . basename( $_FILES['design'][$file]);
   $targetFolder = $targetFolder . basename($hashedFile);
   $fileType = $_FILES['design']['type'];
   if ($fileType == "application/pdf") {
@@ -296,8 +295,6 @@ function uploadFile($file) {
      echo "You may only upload PDFs.<br>";
   }
 }
-
-
 
 // Creates a Seller Block.
 // Returns the generated hash as the permit application ID.
