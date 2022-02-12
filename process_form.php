@@ -14,8 +14,8 @@
     $_SESSION['propertyAddress'] = $_POST['address'];
     $_SESSION['ownerDetails'] = $_POST['name'];
     $file = $_FILES;
-    $hashedfile = hashFile($file);
-    uploadFile($file);
+    $hashedFile = hash_file('sha256', $_FILES['design']['tmp_name']);
+    uploadFile($hashedFile);
     $_SESSION['buildingDesign'] = $file;
     $_SESSION['licence'] = $_POST['licence'];
     unset($_POST);

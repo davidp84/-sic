@@ -283,12 +283,12 @@ function updateDealStatus($decision, $address) {
 // uploads the file
 function uploadFile($file) {
   $targetFolder = "uploads/";
-  $targetFolder = $targetFolder . basename( $_FILES['design'][$file]);
+  // $targetFolder = $targetFolder . basename( $_FILES['design'][$file]);
+  $targetFolder = $targetFolder . basename($hashedFile);
   $fileType = $_FILES['design']['type'];
-
   if ($fileType == "application/pdf") {
-    if(move_uploaded_file($_FILES['design'][$file], $targetFolder)) {
-        echo "The file ". basename( $_FILES['design']['name']). " is uploaded";
+    if(move_uploaded_file($_FILES['design']['tmp_name'], $targetFolder)) {
+        echo "The file ". basename( $_FILES['design']['name']). " is uploaded" . "<br>";
       } else {
         echo "Problem uploading file";
       }   
@@ -297,10 +297,7 @@ function uploadFile($file) {
   }
 }
 
-// hashes the file to add to blockchain.
-function hashFile($file) {
-  return hash_file('sha256', $file);
-}
+
 
 // Creates a Seller Block.
 // Returns the generated hash as the permit application ID.
