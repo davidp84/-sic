@@ -3,7 +3,7 @@
   
 <?php
   include_once("tools.php"); 
-  topModule("OrbicoBiz");
+  topModule("Homelink");
   
   // sets the SESSION data dependant on which form has been filled
   // and calls the method to create the relevant block. Also unsets 
