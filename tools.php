@@ -281,7 +281,7 @@ function updateDealStatus($decision, $address) {
 }
 
 // uploads the file
-function uploadFile($file) {
+function uploadFile($hashedFile) {
   $targetFolder = "../uploads/";
   $targetFolder = $targetFolder . basename($hashedFile);
   $fileType = $_FILES['design']['type'];
